@@ -8,4 +8,5 @@ class Blog(BaseModel):
 class BlogState(TypedDict):
     topic: str
     blog: Blog
+    image: str
     current_language:str

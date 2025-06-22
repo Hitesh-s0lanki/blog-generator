@@ -4,6 +4,7 @@ langchain_community
 langchain_core
 langchain_openai
 langchain_groq
+openai
 fastapi
 uvicorn 
 watchdog

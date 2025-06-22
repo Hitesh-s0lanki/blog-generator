@@ -21,11 +21,13 @@ class GraphBuilder:
         ## Adding the nodes 
         self.graph.add_node("title_creation", self.blog_node.title_creation)
         self.graph.add_node("content_generation", self.blog_node.content_generation)
+        self.graph.add_node("image_generation", self.blog_node.image_generation)
 
         ## Defining the Graph Edges
         self.graph.add_edge(START, "title_creation")
         self.graph.add_edge("title_creation", "content_generation")
-        self.graph.add_edge("content_generation", END)
+        self.graph.add_edge("content_generation", "image_generation")
+        self.graph.add_edge("image_generation", END)
     
     def multi_lang_blog_graph(self):
         """

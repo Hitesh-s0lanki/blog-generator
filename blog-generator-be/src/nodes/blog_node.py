@@ -1,5 +1,7 @@
 from src.states.blog_state import BlogState, Blog
-from langchain_core.messages import SystemMessage, HumanMessage
+from langchain_core.messages import HumanMessage
+
+from src.image_llm.openai_image import OpenaiImage
 
 class BlogNode:
     
@@ -32,6 +34,20 @@ class BlogNode:
             response = self.llm.invoke(system_message)
             return {"blog": {"title": state['blog']['title'], "content": response.content}}
         
+    def image_generation(self, state:BlogState):
+        """
+            Generate the image using the topic. 
+        """
+        if "blog" in state and state["blog"]["title"]:
+            # Get the class instance
+            openai_image = OpenaiImage()
+
+            # generate the image
+            url = openai_image.get_image_url(state["blog"]["title"])
+
+            # return the image
+            return {"blog": {"title": state["blog"]["title"], "content": state["blog"]["content"], "image": url}}
+        
     def translation(self, state:BlogState):
         """
             Translate the content to the specified language.
@@ -53,9 +69,7 @@ class BlogNode:
 
         translation_content = self.llm.with_structured_output(Blog).invoke(messages)
 
-        # print(translation_content)
-
-        return {"blog": {"content": translation_content}}
+        return {"blog": { "content": translation_content}}
         
     def route(self, state: BlogState):
         return {"current_language": state['current_language']}
