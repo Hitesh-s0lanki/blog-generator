@@ -14,7 +14,9 @@ export const BlogIdView: React.FC<BlogIdViewProps> = ({ id }) => {
   const trpc = useTRPC();
 
   // Fetch blog data
-  const { data } = useSuspenseQuery(trpc.blogs.getOne.queryOptions({ id: id }));
+  const { data } = useSuspenseQuery(
+    trpc.blogs.getPublicOne.queryOptions({ id: id })
+  );
 
   return (
     <div className="prose  px-8 md:px-40 lg:px-40  py-8 flex flex-col gap-5 bg-white">

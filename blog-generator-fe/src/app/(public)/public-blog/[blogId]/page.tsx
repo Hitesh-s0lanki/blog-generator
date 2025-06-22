@@ -18,7 +18,7 @@ const Page = async ({ params }: Props) => {
 
   const queryClient = getQueryClient();
   void queryClient.prefetchQuery(
-    trpc.blogs.getOne.queryOptions({ id: blogId })
+    trpc.blogs.getPublicOne.queryOptions({ id: blogId })
   );
 
   return (
